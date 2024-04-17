@@ -1,4 +1,4 @@
-# Workbook-api-
+# Workbook-api
 JWT
 
 화면 없이 AJAX와 JSON을 이용해 데이터를 주고 받는 구조에서는 HttpSession이나 쿠키를 이용하는 기존의 인증방식에 제한이 있다.
