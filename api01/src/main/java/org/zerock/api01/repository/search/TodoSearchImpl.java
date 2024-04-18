@@ -1,5 +1,4 @@
 package org.zerock.api01.repository.search;
-
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPQLQuery;

@@ -12,12 +12,12 @@ import java.util.Collection;
 @Getter
 @Setter
 @ToString
-public class APIUserDTO extends User {  // 엔티티에서 받은 정보를 dto로 변환
+public class APIUserDTO extends User {
 
     private String mid;
     private String mpw;
 
-    public APIUserDTO(String username, String password, Collection<GrantedAuthority> authorities) {  // 권한 Collection<GrantedAuthority> authorities
+    public APIUserDTO(String username, String password, Collection<GrantedAuthority> authorities) {
         super(username, password, authorities);
         this.mid = username;
         this.mpw = password;

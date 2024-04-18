@@ -5,5 +5,4 @@ import org.zerock.api01.domain.APIUser;
 
 public interface APIUserRepository extends JpaRepository<APIUser, String> {
 
-
 }

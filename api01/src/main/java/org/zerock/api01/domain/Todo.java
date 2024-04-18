@@ -18,7 +18,6 @@ public class Todo {
     private Long tno;
     private String title;
     private LocalDate dueDate;
-
     private String writer;
     private boolean complete;
     public void changeComplete(boolean complete){
@@ -30,5 +29,4 @@ public class Todo {
     public void changeTitle(String title){
         this.title = title;
     }
-
 }

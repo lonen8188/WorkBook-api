@@ -1,8 +1,9 @@
 package org.zerock.api01.domain;
 
+import lombok.*;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.*;
 
 @Entity
 @Getter
@@ -10,13 +11,13 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class APIUser {  // Access Key 발급받을 때 자신의 id와 pw를 이용
+public class APIUser {
 
-    @Id // pk 설정
-    private String mid;  // 회원  id
-    private String mpw;  // 회원  pw
+    @Id
+    private String mid;
+    private String mpw;
 
-    public void changePw(String mpw){  // 암호 변경 
+    public void changePw(String mpw){
         this.mpw = mpw;
     }
 }

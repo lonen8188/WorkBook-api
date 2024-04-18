@@ -25,7 +25,7 @@ public class APIUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-            // 783 추가 해당 사용자가 존재할 때 user 권한을 가짐
+
         Optional<APIUser> result = apiUserRepository.findById(username);
 
         APIUser apiUser = result.orElseThrow(() -> new UsernameNotFoundException("Cannot find mid"));
@@ -40,7 +40,5 @@ public class APIUserDetailsService implements UserDetailsService {
         log.info(dto);
 
         return dto;
-
-        // return null;
     }
 }

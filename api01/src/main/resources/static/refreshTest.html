@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
 </head>
 <body>
 
@@ -26,39 +26,39 @@
 <script>
 
 
-    const oldAccessToken = localStorage.getItem("accessToken")
-    const oldRefreshToken = localStorage.getItem("refreshToken")
+  const oldAccessToken = localStorage.getItem("accessToken")
+  const oldRefreshToken = localStorage.getItem("refreshToken")
 
-    document.querySelector(".accessOld").innerHTML = oldAccessToken
-    document.querySelector(".refreshOld").innerHTML = oldRefreshToken
-
-
-
-    document.querySelector(".btn1").addEventListener("click", () => {
+  document.querySelector(".accessOld").innerHTML = oldAccessToken
+  document.querySelector(".refreshOld").innerHTML = oldRefreshToken
 
 
-        axios.post('http://localhost:8080/refreshToken',
+
+  document.querySelector(".btn1").addEventListener("click", () => {
+
+
+    axios.post('http://localhost:8080/refreshToken',
             {accessToken: oldAccessToken, refreshToken: oldRefreshToken})
             .then(res => {
-                console.log(res.data)
+              console.log(res.data)
 
-                const newAccessToken = res.data.accessToken
-                const newRefreshToken = res.data.refreshToken
+              const newAccessToken = res.data.accessToken
+              const newRefreshToken = res.data.refreshToken
 
-                document.querySelector(".accessResult").innerHTML =
-                    oldAccessToken !== newAccessToken?newAccessToken:'OLD'
-                document.querySelector(".refreshResult").innerHTML =
-                    oldRefreshToken !== newRefreshToken?newRefreshToken:'OLD'
+              document.querySelector(".accessResult").innerHTML =
+                      oldAccessToken !== newAccessToken?newAccessToken:'OLD'
+              document.querySelector(".refreshResult").innerHTML =
+                      oldRefreshToken !== newRefreshToken?newRefreshToken:'OLD'
 
 
             })
             .catch(error => {
-                    console.error(error)
-                }
+                      console.error(error)
+                    }
             )
 
 
-    },false)
+  },false)
 
 
 </script>

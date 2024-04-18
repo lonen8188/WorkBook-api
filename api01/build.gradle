@@ -8,7 +8,7 @@ buildscript {
 
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.1.10'
+    id 'org.springframework.boot' version '3.1.0'
     id 'io.spring.dependency-management' version '1.1.0'
 }
 
@@ -45,9 +45,9 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
 
-    implementation 'com.google.code.gson:gson:2.8.9' // 788 추가
+    implementation 'com.google.code.gson:gson:2.8.9'
 
-    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'  // 796 추가 jjwt 발행용
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5',
             'io.jsonwebtoken:jjwt-jackson:0.11.5'
 

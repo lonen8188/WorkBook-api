@@ -10,28 +10,18 @@
 
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-    // http://localhost:8080/files/apiLogin.html
+
     document.querySelector(".btn1").addEventListener("click",()=> {
 
         const data = {mid:"apiuser10", mpw:"1111"}
 
-        axios.post("http://localhost:8080/generateToken", data)
-            .then(res => {  // 818 추가 토큰 발행 테스트용
-                // console.log(res.data.accessToken)
-                // http://localhost:8080/swagger-ui/index.html#/sample-controller/doA 테스트 완료
-                // JWTUtil: org.zerock.api01.util.JWTUtil@43fc94
-                // 2024-04-17T15:03:11.051+09:00  INFO 9620 --- [nio-8080-exec-2] o.z.a.security.filter.TokenCheckFilter   : TOKENSTR-----------------------------
-                // 2024-04-17T15:03:11.051+09:00  INFO 9620 --- [nio-8080-exec-2] o.z.a.security.filter.TokenCheckFilter   : eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtaWQiOiJhcGl1c2VyMTAiLCJpYXQiOjE3MTMzMzM3NjMsImV4cCI6MTcxMzQyMDE2M30.bawRdRWYSrPKiRTYJbG99mcyTlTutqACtlWeXTlezCs
-                // 2024-04-17T15:03:11.051+09:00  INFO 9620 --- [nio-8080-exec-2] o.z.a.security.filter.TokenCheckFilter   : ----------------------------------------
-                // 2024-04-17T15:03:11.120+09:00 DEBUG 9620 --- [nio-8080-exec-2] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
-                // 2024-04-17T15:03:11.122+09:00 DEBUG 9620 --- [nio-8080-exec-2] o.s.security.web.FilterChainProxy        : Secured GET /api/sample/doA
-
+        axios.post("http://localhost:8080/generateToken", data).then(res => {
             const accessToken = res.data.accessToken
             const refreshToken = res.data.refreshToken
 
-            localStorage.setItem("accessToken", accessToken) // 로컬 스토리지에 저장 되도록 테스트 (쿠키 대체제)
+            localStorage.setItem("accessToken", accessToken)
             localStorage.setItem("refreshToken", refreshToken)
-            //localStorage는 window 객체를 통해 접근 setItem(k,v), getItem(k) 메서드 이용
+
         })
 
     }, false)

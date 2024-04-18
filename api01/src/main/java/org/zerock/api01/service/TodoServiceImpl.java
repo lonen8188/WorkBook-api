@@ -2,8 +2,6 @@ package org.zerock.api01.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-//import org.zerock.api01.dto.PageRequestDTO;
-//import org.zerock.api01.dto.PageResponseDTO;
 import org.zerock.api01.dto.PageRequestDTO;
 import org.zerock.api01.dto.PageResponseDTO;
 import org.zerock.api01.dto.TodoDTO;
@@ -40,7 +38,7 @@ public class TodoServiceImpl implements TodoService{
         return modelMapper.map(todo, TodoDTO.class);
     }
 
-    @Override  // 868 추가
+    @Override
     public PageResponseDTO<TodoDTO> list(PageRequestDTO pageRequestDTO) {
         Page<TodoDTO> result = todoRepository.list(pageRequestDTO);
         return PageResponseDTO.<TodoDTO>withAll()
@@ -50,11 +48,11 @@ public class TodoServiceImpl implements TodoService{
                 .build();
     }
 
-    @Override  // 869 추가
+    @Override
     public void remove(Long tno) {
         todoRepository.deleteById(tno);
     }
-    @Override // 869 추가
+    @Override
     public void modify(TodoDTO todoDTO) {
         Optional<Todo> result = todoRepository.findById(todoDTO.getTno());
         Todo todo = result.orElseThrow();
@@ -64,6 +62,5 @@ public class TodoServiceImpl implements TodoService{
 
         todoRepository.save(todo);
     }
-
 
 }

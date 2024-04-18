@@ -17,36 +17,35 @@
     const callServer = async() => {
         console.log("call server 1...")
 
-        // at가없다면 경고창 발생 838 추가
         const accessToken = localStorage.getItem("accessToken")
 
         if(!accessToken) {
             throw 'Cannot Find Access Token'
         }
 
-        const authHeader = {"Authorization": `Bearer ${accessToken}`}  // 839 추가
-        try {  // 841 예외 추가
-            const res = await axios.get("http://localhost:8080/api/sample/doA", // 839 추가
-                {headers: authHeader}) // 839 추가
-            return res.data  // 839 추가
-        }catch(err) {// 841 예외 추가
+        const authHeader = {"Authorization": `Bearer ${accessToken}`}
+        try {
+            const res = await axios.get("http://localhost:8080/api/sample/doA",
+                {headers: authHeader})
+            return res.data
+        }catch(err) {
 
-            if(err.response.data.msg === 'Expired Token'){// 841 예외 추가
-                console.log("Refresh Your Token")// 841 예외 추가
+            if(err.response.data.msg === 'Expired Token'){
+                console.log("Refresh Your Token")
 
-                try{   // 842 rt 예외 추가
-                    await callRefresh() // 842 rt 예외 추가
-                    console.log("new tokens....saved..") // 842 rt 예외 추가
-                    return callServer() // 842 rt 예외 추가
+                try{
+                    await callRefresh()
+                    console.log("new tokens....saved..")
+                    return callServer()
 
-                }catch(refreshErr){ // 842 rt 예외 추가
-                    throw refreshErr.response.data.msg// 841 예외 추가
-                } // 842 rt 예외 추가
+                }catch(refreshErr){
+                    throw refreshErr.response.data.msg
+                }
             }//end if
-    //     }
-    // }
-    //
-    const callRefresh = async () => {  // 843 추가 아래쪽 쭉!
+        }
+    }
+
+    const callRefresh = async () => {
 
         const accessToken = localStorage.getItem("accessToken")
         const refreshToken = localStorage.getItem("refreshToken")
@@ -64,7 +63,7 @@
 
         callServer().then(result => {
             console.log(result)
-        }).catch(error => {  // 838 추가 2줄 예외 처리
+        }).catch(error => {
             alert(error)
         })
     },false)
