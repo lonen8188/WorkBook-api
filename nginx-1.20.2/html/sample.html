@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+<h1>Sample HTML </h1>
+
+<script>
+
+    // 샘플 컨트롤러에 호출 및 리턴 출력
+    async function callTest(){
+       const response = await axios.get("http://localhost:8080/api/sample/doA")
+       return response.data
+    }
+
+    callTest()
+       .then(data => console.log(data))  // 브라우저 콘솔에 보임
+       .catch(e => console.log(e));
+
+
+</script>
+</body>
+</html>
