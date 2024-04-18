@@ -105,14 +105,15 @@ public class CustomSecurityConfig {
         //    "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtaWQiOiJhcGl1c2VyMTAiLCJpYXQiOjE3MTMzMzA3NTUsImV4cCI6MTcxMzQxNzE1NX0.WiRbWLTZUn87ndEbI37iQNOPPp4_05-LJz9_gml4N4c",
         //    "refreshToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtaWQiOiJhcGl1c2VyMTAiLCJpYXQiOjE3MTMzMzA3NTUsImV4cCI6MTcxNTkyMjc1NX0.Ajh4_snW_b6nUNEdu7o_tvTjGpQSL3C0pPwYUxE3RGA"
         //}
+        
         //APILoginFilter의 위치 조정
-
         http.addFilterBefore(apiLoginFilter, UsernamePasswordAuthenticationFilter.class);
 
         // 809 추가 설정
         // api로 시작하는 모든 경로는 TokenCheckFilter 동작
         http.addFilterBefore(
-                tokenCheckFilter(jwtUtil),  // 하단에 tokenCheckFilter 추가 필수 , apiUserDetailsService
+                tokenCheckFilter(jwtUtil, apiUserDetailsService),  // 하단에 tokenCheckFilter 추가 필수 
+                             // 873 추가 , apiUserDetailsService
                 UsernamePasswordAuthenticationFilter.class
 
                 //http://localhost:8080/api/sample/doA 요청시
@@ -193,8 +194,10 @@ public class CustomSecurityConfig {
     }
 
     // 810 추가
-    private TokenCheckFilter tokenCheckFilter(JWTUtil jwtUtil){ // , APIUserDetailsService apiUserDetailsService
-        return new TokenCheckFilter(jwtUtil); //apiUserDetailsService,
+    private TokenCheckFilter tokenCheckFilter(JWTUtil jwtUtil, APIUserDetailsService apiUserDetailsService){
+                                                            // 873 추가 , APIUserDetailsService apiUserDetailsService
+        return new TokenCheckFilter(jwtUtil, apiUserDetailsService);
+                                // 873 추가, apiUserDetailsService,
     }
 //
 //    @Bean

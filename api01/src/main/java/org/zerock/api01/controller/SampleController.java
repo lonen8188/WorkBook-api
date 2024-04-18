@@ -12,14 +12,14 @@ import java.util.List;
 public class SampleController {
 
     @GetMapping("/doA")  // http://localhost:8080/api/sample/doA
-    //@PreAuthorize("hasRole('ROLE_USER')")  // USER 인가
+    @PreAuthorize("hasRole('ROLE_USER')")  // USER 인가 874 추가
     public List<String> doA() {
         return Arrays.asList("AAA","BBB","CCC");
     }
 
-    
+    // 875 추가
     @GetMapping("/doB") //http://localhost:8080/api/sample/doA
-    //@PreAuthorize("hasRole('ROLE_ADMIN')")  // ADMIN 인가
+    @PreAuthorize("hasRole('ROLE_ADMIN')")  // ADMIN 인가 874 추가
     public List<String> doB() {
         return Arrays.asList("AdminAAA","AdminBBB","AdminCCC");
     }

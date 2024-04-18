@@ -3,10 +3,12 @@ package org.zerock.api01.util;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.security.Key;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,12 +44,15 @@ public class JWTUtil {
         //10분 단위로 조정
         int time = (60*24) * days; //테스트는 분단위로 나중에 60*24 (일)단위변경
 
+        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256); // signWith Deprecated 임 키 생성후 전달
+
         String jwtStr = Jwts.builder()  // 799 추가
                 .setHeader(headers)
                 .setClaims(payloads)
                 .setIssuedAt(Date.from(ZonedDateTime.now().toInstant()))
                 .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(time).toInstant()))
-                .signWith(SignatureAlgorithm.HS256, key.getBytes())  //signWith 이나 사용 가능
+                // Deprecated .signWith(SignatureAlgorithm.HS256, key.getBytes())
+                .signWith(key)  // 24.04월 부로 변경
                 .compact();
 
         // generateKey...hello1234567890hello1234567890hello1234567890
@@ -62,13 +67,17 @@ public class JWTUtil {
         // 문자열자체 구성이 잘못되거나, 유효기간, 서명에 문제 있는 등 처리용
         Map<String, Object> claim = null;
 
-        claim = Jwts.parser()
+// Deprecated     claim = Jwts.parser()
+//                .setSigningKey(key.getBytes()) // Set Key
+//                .parseClaimsJws(token) // 파싱 및 검증, 실패 시 에러
+//                .getBody();
+
+        claim = Jwts.parserBuilder()
                 .setSigningKey(key.getBytes()) // Set Key
+                .build()
                 .parseClaimsJws(token) // 파싱 및 검증, 실패 시 에러
                 .getBody();
 
-        //New code:
-        // Jwts.parserBuilder()      .requireAudience("string")      .build()      .parse(jwtString)
         return claim;
     }
 
